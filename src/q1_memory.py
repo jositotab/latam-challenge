@@ -1,3 +1,4 @@
+# Databricks notebook source
 from typing import List, Tuple
 from datetime import datetime
 from pyspark.sql import Window
