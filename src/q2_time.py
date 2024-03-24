@@ -13,8 +13,8 @@ import emoji
 from pyspark.sql.functions import col, to_date, lit, count, row_number, substring, explode, split, udf
 from pyspark.sql.types import BooleanType, StructType, StringType, StructField
 from pyspark.sql import Window
-
-
+from memory_profiler import profile as mem_profile
+from line_profiler import profile as line_profile
     
 def es_emoji(caracter):
     #El formato unicode de los emojis es \uXXXX
@@ -22,6 +22,8 @@ def es_emoji(caracter):
     return emoji.is_emoji(caracter)
 
 
+#@mem_profile
+#@line_profile
 def q2_time(file_path: str) -> List[Tuple[str, int]]:
     #Inicializamos spark
     spark = create_spark_session()

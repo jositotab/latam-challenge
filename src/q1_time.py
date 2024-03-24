@@ -7,7 +7,11 @@ from typing import List, Tuple
 from datetime import datetime
 from pyspark.sql import Window
 from pyspark.sql.functions import col, to_date, lit, count, row_number, substring
+from memory_profiler import profile as mem_profile
+from line_profiler import profile as line_profile
 
+#@mem_profile
+#@line_profile
 def q1_time(file_path: str) -> List[Tuple[datetime.date, str]]:
         #Creamos sesión de spark:
         spark = create_spark_session()

@@ -9,7 +9,11 @@ from datetime import datetime
 from pyspark.sql import Window
 from pyspark.sql.functions import col, to_date, lit, count, row_number, substring, explode, trim
 from pyspark.sql.types import BooleanType, StructType, StringType, StructField, ArrayType
+from memory_profiler import profile as mem_profile
+from line_profiler import profile as line_profile
 
+#@mem_profile
+#@line_profile
 def q3_time(file_path: str) -> List[Tuple[str, int]]:
     #Creamos sesión de spark:
     spark = create_spark_session()

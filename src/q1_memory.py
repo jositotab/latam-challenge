@@ -4,7 +4,11 @@ from datetime import datetime
 from pyspark.sql import Window
 from pyspark.sql.functions import col, to_date, lit, count, row_number, substring
 from pyspark.storagelevel import StorageLevel
+from memory_profiler import profile as mem_profile
+from line_profiler import profile as line_profile
 
+#@mem_profile
+#@line_profile
 def q1_memory(file_path: str) -> List[Tuple[datetime.date, str]]:
         #Creamos sesión de spark:
         spark = create_spark_session()
@@ -18,8 +22,8 @@ def q1_memory(file_path: str) -> List[Tuple[datetime.date, str]]:
                                 to_date(substring(col("date"),1,10).cast("date"), 'yyyy-mm-dd').alias("date_dia"),
                                 col("user.username").alias("username")
         )
-        df_universo.display()
-        print(df_universo.columns)
+        ##df_universo.display()
+        ##print(df_universo.columns)
 
         df_universo.persist(StorageLevel.DISK_ONLY) #usamos .persist() en este dataframe para guardarlo en DISCO y no consumir tanta RAM
 
@@ -29,7 +33,7 @@ def q1_memory(file_path: str) -> List[Tuple[datetime.date, str]]:
 
         df_ctd_fecha_01 = df_universo.groupBy("date_dia").agg(count(lit(1)).alias('ctd_x_fecha'))
 
-        print('ctd_x_fecha_max')
+        ##print('ctd_x_fecha_max')
         df_ctd_fecha_01.orderBy(col('ctd_x_fecha').desc()).show()
 
         df_ctd_fecha_02 = df_ctd_fecha_01.select( 
@@ -39,10 +43,10 @@ def q1_memory(file_path: str) -> List[Tuple[datetime.date, str]]:
                         
         df_ctd_fecha_03 = df_ctd_fecha_02.where(col("top_n") <= 10)
 
-        df_ctd_fecha_03.show()
+        ##df_ctd_fecha_03.show()
 
         top_10_fechas_list = [c.date_dia for c in df_ctd_fecha_03.collect()] #usamos collect porque solo son 10 registros, si fuere más optaríamos por otra forma de recolectar los datos como take
-        print(top_10_fechas_list)
+        ##print(top_10_fechas_list)
 
         ##Paso3: Con funciones de ventana obtenemos de misma manera los usuarios más frecuentes en esas 10 fechas
 
@@ -60,7 +64,7 @@ def q1_memory(file_path: str) -> List[Tuple[datetime.date, str]]:
         ##Paso4: Almacenamos el resultado en el formato pedido
         result = write_to_tuples(df_ctd_fecha_user_03, "date_dia", "username")
 
-        print(result)
+        ##print(result)
 
         return result
 
