@@ -64,4 +64,4 @@ def q1_memory(file_path: str) -> List[Tuple[datetime.date, str]]:
 
         return result
 
-q1_memory("dbfs:/FileStore/shared_uploads/taboada.jose@pucp.pe/farmers_protest_tweets_2021_2_4.json")
+#q1_memory("dbfs:/FileStore/shared_uploads/taboada.jose@pucp.pe/farmers_protest_tweets_2021_2_4.json")

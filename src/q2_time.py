@@ -1,5 +1,5 @@
 # Databricks notebook source
-# MAGIC %pip install emoji
+#%pip install emoji
 
 # COMMAND ----------
 
@@ -45,4 +45,4 @@ def q2_time(file_path: str) -> List[Tuple[str, int]]:
 
     return result
     
-q2_time("dbfs:/FileStore/shared_uploads/taboada.jose@pucp.pe/farmers_protest_tweets_2021_2_4.json")
+#q2_time("dbfs:/FileStore/shared_uploads/taboada.jose@pucp.pe/farmers_protest_tweets_2021_2_4.json")
